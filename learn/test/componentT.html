@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>component test</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="component1">
+    <ol>
+        <todo-item
+                v-for="item in groceryList"
+                v-bind:todo="item"
+                v-bind:key="item.id"
+        >
+        </todo-item>
+    </ol>
+</div>
+
+<script>
+
+    Vue.component("todo-item",{
+        props: ["todo"],
+        template: "<li>{{ todo.text }}</li>"
+    })
+
+    new Vue({
+        el: "#component1",
+        data: {
+            groceryList: [
+                {id: 1, text: "hello1"},
+                {id: 1, text: "hello2"},
+                {id: 1, text: "hello3"}
+            ]
+        }
+
+    })
+
+</script>
+
+</body>
+</html>

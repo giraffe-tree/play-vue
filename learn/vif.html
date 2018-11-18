@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue v-if </title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <button @click="change">change</button>
+    <!-- template 中的内容不会被渲染 -->
+    <template v-if="ok">
+        <h1>Title</h1>
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+        <div v-if="Math.random() > 0.5">
+            Now you see me
+        </div>
+        <div v-else>
+            Now you don't
+        </div>
+    </template>
+    <p>
+        <button @click="changeLoginType">changeLoginType</button>
+        <template v-if="loginType === 'username'">
+            <label>Username</label>
+            <input placeholder="Enter your username"  key="username-input">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Enter your email address"  key="email-input">
+        </template>
+    </p>
+
+    <template v-show="ok">
+        <h1>Title</h1>
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+        <div v-if="Math.random() > 0.5">
+            Now you see me
+        </div>
+        <div v-else>
+            Now you don't
+        </div>
+    </template>
+
+</div>
+
+<script>
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            ok: false,
+            loginType: 'username'
+        },
+        methods: {
+            change: function () {
+                this.ok = !this.ok;
+            },
+            changeLoginType: function () {
+                if (this.loginType === 'username') {
+                    this.loginType = 'email';
+                } else {
+                    this.loginType = 'username';
+                }
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

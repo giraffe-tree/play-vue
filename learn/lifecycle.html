@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Life Cycle for Vue</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+
+<div id="god">
+    {{ newTodoText }}
+</div>
+
+
+<script>
+
+
+    var vm = new Vue({
+        el: "#god",
+        data: {
+            newTodoText: 'xx',
+            visitCount: 0,
+            hideCompletedTodos: false,
+            todos: [],
+            error: null
+        },
+        beforeCreate: function(){
+            console.log("before created function has been called");
+        },
+        created: function () {
+            console.log(this.newTodoText+" created...");
+        }
+    });
+    // $el 不在 new Vue() 中正确赋值, 将会使得数据绑定失败
+    // vm.$el = document.getElementById("god");
+    // console.log(vm.$el === document.getElementById('god'));
+    vm.$watch('newTodoText',function (newValue, oldValue) {
+        console.log("%s -> %s",oldValue,newValue)
+    });
+
+    // 下面这行不生效
+    vm.newTodoText = "hellow ...";
+    // 下面这行生效
+    vm.newTodoText = "now ..."
+
+
+</script>
+
+
+</body>
+</html>

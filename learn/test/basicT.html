@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app1">
+    {{ message }}
+</div>
+
+<div id="bind1">
+    <span v-bind:title="message">
+        origin
+    </span>
+
+</div>
+
+<div id="for1">
+    <span v-for="x in msg">
+        {{ x.address }}
+    </span>
+</div>
+
+<div id="on1">
+    <span> {{ book }} </span>
+    <button v-on:click="reverse">反转</button>
+</div>
+
+<div id="model1">
+    <p> {{ hello }}</p>
+    <input v-model="hello">
+</div>
+<script>
+
+   var vue1 = new Vue({
+               el: "#app1",
+       data: {
+       message: "hello world"
+   }
+   })
+   var vue2 = new Vue({
+       el: "#bind1",
+       data: {
+           message: "hello now" + new Date()
+       }
+   })
+   new Vue({
+       el: "#for1",
+       data: {
+           msg: [
+               {address: "中国"},
+               {address: "浙江"},
+               {address: "杭州"}
+           ]
+       }
+   })
+
+    new Vue({
+        el: "#on1",
+        data: {
+            book: "Linux 私房菜 基础学习篇"
+        },
+        methods: {
+            reverse: function () {
+                this.book = this.book.split('').reverse().join('');
+            }
+        }
+    })
+
+    new Vue({
+        el: "#model1",
+        data: {
+            hello: "world"
+        }
+    })
+</script>
+</body>
+</html>

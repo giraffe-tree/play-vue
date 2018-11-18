@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue template</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="god">
+
+    <span> {{ message.split('').reverse().join('') }}</span>
+    <span v-html="htmlMsg"></span>
+    <p v-bind:title="bindMsg">xx</p>
+    <!-- v-on:click 缩写成 @click -->
+    <button v-bind:disabled="isButtonDisabled" @click="clickButton">Button</button>
+    <!-- v-bind 缩写成 :id -->
+    <div :id="'list-' + id001"></div>
+</div>
+
+<script>
+    var vm  = new Vue({
+        el: "#god",
+        data: {
+            message: "hello world",
+            htmlMsg: "<p> {{ message }}</p>",
+            bindMsg: "haha ",
+            isButtonDisabled: false,
+            id001: "NO.001"
+        },
+        methods: {
+            clickButton: function () {
+                alert("hello click");
+                console.log("click button");
+                // 下面两行等同
+                // this.$data.isButtonDisabled = true;
+                this.isButtonDisabled = true;
+            }
+        }
+    })
+
+</script>
+
+
+</body>
+</html>

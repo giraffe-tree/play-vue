@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue v-for</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <ul id="example-1">
+        <!-- v-for="(item,index) of items" 可以达到同样的效果 -->
+        <li v-for="(item,index) in items">
+            {{ parentMessage }} - {{ index }} - {{ item.message }}
+        </li>
+    </ul>
+    <ul id="v-for-object" class="demo">
+        <li v-for="(value, key, index) in object">
+            {{ index+1 }}. {{ key }}: {{ value }}
+        </li>
+    </ul>
+
+    <p>
+        <button @click="remove">remove</button>
+        <button @click="add">add</button>
+        <button @click="filter">filter</button>
+        <button @click="change">change</button>
+    </p>
+
+    <li v-for="n in even(numbers)">
+        {{ n }}
+    </li>
+    <ul>
+        <!-- v-for 使用 template 标签-->
+        <template v-for="item in items">
+            <li>{{ item.message }}</li>
+            <li>xxx</li>
+        </template>
+    </ul>
+    <li v-for="todo in todos" v-if="!todo.isComplete">
+        {{ todo.msg }}
+    </li>
+</div>
+
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            parentMessage: 'Parent',
+            items: [
+                {message: 'Foo'},
+                {message: 'Bar'}
+            ],
+            object: {
+                firstName: 'John',
+                lastName: 'Doe',
+                age: 30
+            },
+            numbers: [1, 2, 3, 4, 5],
+            todos: [
+                {msg: 'apple', isComplete: false},
+                {msg: 'orange', isComplete: false},
+                {msg: 'banana', isComplete: true},
+                {msg: 'watermelon', isComplete: false}
+
+            ],
+        },
+        methods: {
+            add: function () {
+                this.items.push({message: 'add-' + new Date()})
+
+            },
+            remove: function () {
+                this.items.pop()
+            },
+            filter: function () {
+                this.items = this.items.filter(function (item) {
+                    return item.message.match(/Foo/)
+                })
+            },
+            change: function () {
+                this.$set(this.items, 1, {message: 'changed'})
+                this.items.splice(2, 0, {message: "add hello" + this.items.length})
+            },
+            even: function (numbers) {
+                return numbers.filter(function (number) {
+                    return number % 2 === 0
+                })
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
+
